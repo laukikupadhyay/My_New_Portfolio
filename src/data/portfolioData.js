@@ -2,6 +2,7 @@
 //  PORTFOLIO DATA  –  Edit everything here
 // ─────────────────────────────────────────────────────────────
 import profilePhoto from "../assets/profilePhoto.png";
+import resume from "../Documents/Laukik_Upadhyay_Resume.pdf";
 
 export const personal = {
   name: "Laukik Upadhyay",
@@ -11,13 +12,12 @@ export const personal = {
   summary:
     "Full-Stack Web Developer with hands-on expertise in frontend and backend development using ReactJS, Spring Boot, Hibernate, JPA, and PostgreSQL. Demonstrated ability to design, build, and deploy end-to-end web applications with RESTful APIs, responsive UIs, and scalable architecture. Experienced in CI/CD workflows, cloud deployment (Vercel & Render), and Agile collaboration.",
   email: "laukikbhardwaj183@gmail.com",
-  phone: "+91-9872742320",
+  phone: "+91-9863711132",
   location: "Bengaluru, India",
   // ⬇ Replace with your actual photo path once you add it: "/src/assets/profile.jpg"
   photo: profilePhoto,
   // ⬇ Replace with your actual Google Drive resume link
-  resumeView:
-    "https://drive.google.com/file/d/1_0MZ62uq_Ta6J9feE7p95US5NT13oqi7/view?usp=sharing",
+  resumeView: resume,
   resumeDL:
     "https://drive.google.com/uc?export=download&id=1_0MZ62uq_Ta6J9feE7p95US5NT13oqi7",
 };
