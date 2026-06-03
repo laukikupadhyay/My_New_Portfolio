@@ -245,7 +245,7 @@ export const projects = [
       "Full shipment lifecycle audit trail with timestamped Tracking History logs",
     ],
     github: "#", // ← Add your GitHub URL
-    live: null,
+    live: "https://ab-cs-of-make-up.vercel.app/",
     featured: true,
     period: "Mar 2026 – May 2026",
   },
@@ -268,7 +268,7 @@ export const projects = [
       "Automated CI/CD on Vercel (frontend) and Render (backend)",
       "Contact form with backend persistence for user inquiries",
     ],
-    github: "#",
+    github: "",
     live: "#",
     featured: true,
     period: "May 2025 – Jun 2025",
