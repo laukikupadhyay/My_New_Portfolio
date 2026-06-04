@@ -6,7 +6,7 @@ import resume from "../Documents/Laukik_Upadhyay_Resume.pdf";
 
 export const personal = {
   name: "Laukik Upadhyay",
-  title: "Full Stack Developer",
+  title: "Full Stack Java Developer",
   tagline:
     "Building scalable full-stack applications with ReactJS & Spring Boot.",
   summary:
