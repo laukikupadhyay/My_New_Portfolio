@@ -1,0 +1,160 @@
+/* ═══════════════════════════════════════════════════════════════
+   DESIGN TOKENS
+   Primitives → semantic aliases. Nothing downstream hardcodes hex.
+   ═══════════════════════════════════════════════════════════════ */
+
+:root {
+  /* ── Primitives: ink scale ──────────────────────────────── */
+  --ink-950: #06060A;
+  --ink-900: #08080E;
+  --ink-850: #0B0B13;
+  --ink-800: #0F0F18;
+  --ink-750: #14141F;
+  --ink-700: #1A1A27;
+  --ink-600: #232333;
+  --ink-500: #2E2E42;
+
+  /* ── Primitives: track — DEVELOPMENT ────────────────────── */
+  --dev-400: #818CF8;
+  --dev-500: #6366F1;
+  --dev-600: #4F46E5;
+  --dev-alt: #A78BFA;
+
+  /* ── Primitives: track — TESTING ────────────────────────── */
+  --test-400: #67E8F9;
+  --test-500: #22D3EE;
+  --test-600: #06B6D4;
+  --test-alt: #2DD4BF;
+
+  /* ── Primitives: test-result semantics ──────────────────── */
+  --pass:  #34D399;
+  --flaky: #FBBF24;
+  --fail:  #F87171;
+  --skip:  #94A3B8;
+
+  /* ── Primitives: neutrals ───────────────────────────────── */
+  --white: #FFFFFF;
+  --fog-100: #EDEFF7;
+  --fog-300: #A9B1C7;
+  --fog-500: #6B7490;
+  --fog-700: #414A63;
+
+  /* ══ Semantic: surfaces ═════════════════════════════════ */
+  --bg:          var(--ink-950);
+  --bg-raised:   var(--ink-850);
+  --surface:     var(--ink-800);
+  --surface-2:   var(--ink-750);
+  --surface-3:   var(--ink-700);
+  --surface-hi:  var(--ink-600);
+
+  /* ══ Semantic: text ═════════════════════════════════════ */
+  --text:        var(--fog-100);
+  --text-muted:  var(--fog-300);
+  --text-dim:    var(--fog-500);
+  --text-faint:  var(--fog-700);
+
+  /* ══ Semantic: borders ══════════════════════════════════ */
+  --line:        rgba(255, 255, 255, 0.07);
+  --line-strong: rgba(255, 255, 255, 0.13);
+  --line-bright: rgba(255, 255, 255, 0.22);
+
+  /* ══ Semantic: track accents ════════════════════════════ */
+  --dev:          var(--dev-500);
+  --dev-soft:     rgba(99, 102, 241, 0.12);
+  --dev-line:     rgba(99, 102, 241, 0.28);
+  --dev-glow:     rgba(99, 102, 241, 0.35);
+  --dev-grad:     linear-gradient(135deg, #6366F1 0%, #A78BFA 100%);
+
+  --test:         var(--test-500);
+  --test-soft:    rgba(34, 211, 238, 0.12);
+  --test-line:    rgba(34, 211, 238, 0.28);
+  --test-glow:    rgba(34, 211, 238, 0.35);
+  --test-grad:    linear-gradient(135deg, #22D3EE 0%, #2DD4BF 100%);
+
+  /* Default accent = development (site-wide chrome) */
+  --accent:       var(--dev);
+  --accent-soft:  var(--dev-soft);
+  --accent-line:  var(--dev-line);
+
+  --duo-grad: linear-gradient(120deg, #6366F1 0%, #8B5CF6 38%, #22D3EE 100%);
+
+  /* ══ Typography ═════════════════════════════════════════ */
+  --font-display: 'Space Grotesk', 'Inter', system-ui, sans-serif;
+  --font-body:    'Inter', system-ui, -apple-system, sans-serif;
+  --font-mono:    'JetBrains Mono', 'SF Mono', Menlo, monospace;
+
+  --fs-micro: 0.6875rem;
+  --fs-xs:    0.75rem;
+  --fs-sm:    0.8125rem;
+  --fs-base:  0.9375rem;
+  --fs-md:    1.0625rem;
+  --fs-lg:    1.25rem;
+  --fs-xl:    1.5rem;
+  --fs-2xl:   clamp(1.75rem, 3.4vw, 2.5rem);
+  --fs-3xl:   clamp(2.25rem, 5.5vw, 3.5rem);
+  --fs-hero:  clamp(2.75rem, 8vw, 5.25rem);
+
+  --lh-tight: 1.08;
+  --lh-snug:  1.32;
+  --lh-body:  1.68;
+
+  --tr-tight: -0.03em;
+  --tr-wide:  0.08em;
+  --tr-caps:  0.16em;
+
+  /* ══ Space — 4px base scale ═════════════════════════════ */
+  --s1: 0.25rem;  --s2: 0.5rem;   --s3: 0.75rem;  --s4: 1rem;
+  --s5: 1.5rem;   --s6: 2rem;     --s7: 2.5rem;   --s8: 3rem;
+  --s9: 4rem;     --s10: 5rem;    --s11: 7rem;    --s12: 9rem;
+
+  /* ══ Radii ══════════════════════════════════════════════ */
+  --r-sm: 6px;  --r-md: 10px;  --r-lg: 16px;  --r-xl: 22px;  --r-full: 999px;
+
+  /* ══ Elevation ══════════════════════════════════════════ */
+  --sh-sm: 0 1px 2px rgba(0,0,0,0.4);
+  --sh-md: 0 8px 24px -6px rgba(0,0,0,0.5);
+  --sh-lg: 0 24px 56px -12px rgba(0,0,0,0.66);
+
+  /* ══ Motion ═════════════════════════════════════════════ */
+  --ease:      cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-out:  cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-soft: cubic-bezier(0.4, 0, 0.2, 1);
+  --d-fast: 160ms;  --d-base: 280ms;  --d-slow: 620ms;
+
+  /* ══ Layout ═════════════════════════════════════════════ */
+  --maxw:        1180px;
+  --maxw-narrow: 860px;
+  --gutter:      2rem;
+  --nav-h:       68px;
+
+  /* Vertical rhythm between sections. Applied as padding top AND bottom,
+     so the gap two sections actually show is double this. One knob. */
+  --section-y:   3.25rem;
+  --head-gap:    2rem;
+}
+
+/* Track scoping: any element marked data-track re-points --accent,
+   so a whole subtree inherits its track colour without extra classes. */
+[data-track="dev"] {
+  --accent: var(--dev);
+  --accent-soft: var(--dev-soft);
+  --accent-line: var(--dev-line);
+  --accent-glow: var(--dev-glow);
+  --accent-grad: var(--dev-grad);
+}
+[data-track="test"] {
+  --accent: var(--test);
+  --accent-soft: var(--test-soft);
+  --accent-line: var(--test-line);
+  --accent-glow: var(--test-glow);
+  --accent-grad: var(--test-grad);
+}
+
+@media (max-width: 768px) {
+  :root {
+    --gutter: 1.25rem;
+    --nav-h: 60px;
+    --section-y: 2.5rem;
+    --head-gap: 1.5rem;
+  }
+}

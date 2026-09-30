@@ -1,58 +1,62 @@
-import { useState, useEffect, useRef } from 'react';
-import Navbar    from './components/Navbar';
-import Hero      from './components/Hero';
-import About     from './components/About';
-import TechStack from './components/TechStack';
-import Projects  from './components/Projects';
-import Experience from './components/Experience';
-import Education  from './components/Education';
-import Certifications from './components/Certifications';
-import Contact   from './components/Contact';
-import Footer    from './components/Footer';
+import { useMemo } from 'react';
+import { SECTIONS, devStack, testStack } from './data';
 
-const SECTIONS = ['About','Tech Stack','Projects','Experience','Education','Certifications','Contact'];
+import Navbar from './components/Navbar';
+import Hero from './components/Hero';
+import About from './components/About';
+import StackSection from './components/StackSection';
+import Experience from './components/Experience';
+import TestingShowcase from './components/TestingShowcase';
+import Projects from './components/Projects';
+import Education from './components/Education';
+import Certifications from './components/Certifications';
+import Contact from './components/Contact';
+import Footer from './components/Footer';
+
+import useReveal from './hooks/useReveal';
+import useScrollProgress from './hooks/useScrollProgress';
+import useActiveSection from './hooks/useActiveSection';
 
 export default function App() {
-  const [active, setActive] = useState('About');
-  const refs = useRef({});
+  const ids = useMemo(() => SECTIONS.map(s => s.id), []);
+  const progress = useScrollProgress();
+  const active = useActiveSection(ids);
 
-  // Intersection observer for active nav tracking
-  useEffect(() => {
-    const obs = new IntersectionObserver(
-      entries => entries.forEach(e => { if (e.isIntersecting) setActive(e.target.dataset.sec); }),
-      { rootMargin: '-40% 0px -55% 0px' }
-    );
-    Object.values(refs.current).forEach(el => el && obs.observe(el));
-    return () => obs.disconnect();
-  }, []);
-
-  const scrollTo = id => {
-    refs.current[id]?.scrollIntoView({ behavior: 'smooth', block: 'start' });
-  };
-
-  const ref = id => el => { refs.current[id] = el; };
+  useReveal();
 
   return (
     <>
-      <Navbar active={active} onNav={scrollTo} />
+      <a className="skip-link" href="#about">Skip to content</a>
+
+      <Navbar activeSection={active} progress={progress} />
+
       <main>
-        <Hero onNav={scrollTo} />
-        <div className="divider" />
-        <About      sRef={ref('About')} />
-        <div className="divider" />
-        <TechStack  sRef={ref('Tech Stack')} />
-        <div className="divider" />
-        <Projects   sRef={ref('Projects')} />
-        <div className="divider" />
-        <Experience sRef={ref('Experience')} />
-        <div className="divider" />
-        <Education  sRef={ref('Education')} />
-        <div className="divider" />
-        <Certifications sRef={ref('Certifications')} />
-        <div className="divider" />
-        <Contact    sRef={ref('Contact')} />
+        <Hero />
+        <About />
+
+        <StackSection
+          id="dev-stack"
+          num="02"
+          stack={devStack}
+          counterpart={{ id: 'test-stack', track: 'test', prefix: 'Next', title: 'The testing side' }}
+        />
+
+        <StackSection
+          id="test-stack"
+          num="03"
+          stack={testStack}
+          counterpart={{ id: 'experience', track: 'dev', prefix: 'Next', title: 'How I use both' }}
+        />
+
+        <Experience />
+        <TestingShowcase />
+        <Projects />
+        <Education />
+        <Certifications />
+        <Contact />
       </main>
-      <Footer onNav={scrollTo} />
+
+      <Footer />
     </>
   );
 }

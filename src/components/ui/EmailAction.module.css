@@ -1,0 +1,59 @@
+.shell { display: flex; flex-direction: column; gap: var(--s3); }
+
+.row { display: flex; flex-wrap: wrap; gap: var(--s3); }
+
+.helper {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  flex-wrap: wrap;
+  font-family: var(--font-mono);
+  font-size: var(--fs-xs);
+  color: var(--text-dim);
+  min-height: 1.4em;
+  transition: color var(--d-base) var(--ease-soft);
+}
+.helper[data-copied='true'] { color: var(--pass); }
+.helper[data-copied='true'] svg { color: var(--pass); }
+.helper strong { font-weight: 600; color: var(--pass); }
+
+.address { color: var(--text-muted); }
+.sep { color: var(--text-faint); }
+
+.gmail {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  color: var(--dev-400);
+  border-bottom: 1px solid transparent;
+  transition: border-color var(--d-fast) var(--ease-soft), color var(--d-fast) var(--ease-soft);
+}
+.gmail:hover { color: var(--test-400); border-bottom-color: currentColor; }
+
+/* ── Inline variant ──────────────────────────────────────── */
+.inline { display: inline-flex; align-items: center; gap: 0.4rem; }
+
+.inlineLink {
+  color: inherit;
+  border-bottom: 1px solid transparent;
+  transition: color var(--d-fast) var(--ease-soft), border-color var(--d-fast) var(--ease-soft);
+}
+.inlineLink:hover { color: var(--dev-400); border-bottom-color: currentColor; }
+
+.copyBtn {
+  display: grid;
+  place-items: center;
+  width: 24px; height: 24px;
+  border-radius: var(--r-sm);
+  color: var(--text-faint);
+  border: 1px solid var(--line);
+  flex-shrink: 0;
+  transition: color var(--d-fast) var(--ease-soft),
+              border-color var(--d-fast) var(--ease-soft),
+              background var(--d-fast) var(--ease-soft);
+}
+.copyBtn:hover { color: var(--dev-400); border-color: var(--dev-line); background: var(--dev-soft); }
+
+@media (max-width: 520px) {
+  .row > * { flex: 1; justify-content: center; }
+}

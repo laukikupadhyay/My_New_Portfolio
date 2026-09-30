@@ -1,40 +1,44 @@
-import { certifications } from '../data/portfolioData';
+import { certifications } from '../data';
+import Section from './ui/Section';
+import Icon from './ui/Icon';
+import useSpotlight from '../hooks/useSpotlight';
 import styles from './Certifications.module.css';
 
-const ExtIcon = () => (
-  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-    <path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15,3 21,3 21,9"/><line x1="10" y1="14" x2="21" y2="3"/>
-  </svg>
-);
+function CertCard({ cert }) {
+  const ref = useSpotlight();
+  const Tag = cert.url ? 'a' : 'div';
 
-export default function Certifications({ sRef }) {
   return (
-    <section className="section" ref={sRef} data-sec="Certifications">
-      <div className="wrap">
-        <div className="sec-label">06 · Achievements</div>
-        <h2 className="sec-title">Certifications & <em>Achievements</em></h2>
-
-        <div className={styles.grid}>
-          {certifications.map(c => (
-            <a
-              key={c.title}
-              href={c.url}
-              target="_blank"
-              rel="noopener noreferrer"
-              className={`${styles.card} ${styles[c.color]}`}
-            >
-              <div className={styles.topRow}>
-                <span className={styles.emoji}>{c.emoji}</span>
-                <span className={`${styles.badge} ${styles[c.color]}`}>
-                  <ExtIcon /> View Certificate
-                </span>
-              </div>
-              <h3 className={styles.title}>{c.title}</h3>
-              <div className={styles.issuer}>{c.issuer}</div>
-            </a>
-          ))}
-        </div>
+    <Tag
+      ref={ref}
+      {...(cert.url ? { href: cert.url, target: '_blank', rel: 'noopener noreferrer' } : {})}
+      className={`${styles.card} spot reveal`}
+      data-track={cert.track}
+      data-link={Boolean(cert.url)}
+    >
+      <span className="spot-glow" aria-hidden="true" />
+      <span className={styles.icon}><Icon name={cert.icon} size={19} /></span>
+      <div className={styles.body}>
+        <span className={styles.kind}>{cert.kind}</span>
+        <h3 className={styles.title}>{cert.title}</h3>
+        <p className={styles.issuer}>{cert.issuer}</p>
       </div>
-    </section>
+      {cert.url && <Icon name="external" size={14} className={styles.ext} />}
+    </Tag>
+  );
+}
+
+export default function Certifications() {
+  return (
+    <Section
+      id="certs"
+      num="08"
+      eyebrow="Recognition"
+      title={<>Certifications &amp; <em>achievements</em></>}
+    >
+      <div className={styles.grid}>
+        {certifications.map(cert => <CertCard key={cert.id} cert={cert} />)}
+      </div>
+    </Section>
   );
 }

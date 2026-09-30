@@ -1,64 +1,139 @@
-import { experience } from '../data/portfolioData';
+import { useState } from 'react';
+import { experience, TRACK_META } from '../data';
+import Section from './ui/Section';
+import TrackToggle from './ui/TrackToggle';
+import Icon from './ui/Icon';
 import styles from './Experience.module.css';
 
-const BriefIcon = () => (
-  <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-    <rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 7V5a2 2 0 00-2-2h-4a2 2 0 00-2 2v2"/>
-  </svg>
-);
-const CalIcon = () => (
-  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-    <rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/>
-  </svg>
-);
+const OPTIONS = [TRACK_META.all, TRACK_META.dev, TRACK_META.test];
 
-export default function Experience({ sRef }) {
+/* Development reads first: it is the heavier track and the one most roles
+   screen on. Content order stays owned by the data; this is reading order. */
+const TRACK_ORDER = { dev: 0, test: 1 };
+
+function Lane({ lane, company }) {
+  const [openIndex, setOpenIndex] = useState(0);
+
   return (
-    <section className="section" ref={sRef} data-sec="Experience">
-      <div className="wrap">
-        <div className="sec-label">04 · Journey</div>
-        <h2 className="sec-title">Work <em>Experience</em></h2>
+    <div className={styles.lane} data-track={lane.track}>
+      <header className={styles.laneHead}>
+        <span className={styles.laneBadge}>{lane.short}</span>
+        <div className={styles.laneTitles}>
+          <h4 className={styles.laneRole}>{lane.role}</h4>
+          <p className={styles.laneScope}>{lane.scope}</p>
+        </div>
+      </header>
 
-        <div className={styles.timeline}>
-          {experience.map((exp, i) => (
-            <div className={styles.item} key={exp.role}>
-              <div className={styles.dotCol}>
-                <div className={styles.dot}/>
-                {i < experience.length - 1 && <div className={styles.line}/>}
-              </div>
-              <div className={styles.card}>
-                <div className={styles.cardTop}>
-                  <div>
-                    <h3 className={styles.role}>{exp.role}</h3>
-                    <div className={styles.company}><BriefIcon/>{exp.company}</div>
-                  </div>
-                  <div className={styles.meta}>
-                    <span className={`${styles.badge} ${styles[exp.color]}`}>{exp.type}</span>
-                    <span className={styles.period}><CalIcon/> {exp.period}</span>
-                  </div>
-                </div>
-                <ul className={styles.points}>
-                  {exp.points.map((pt,j)=>(
-                    <li key={j} className={styles.pt}>
-                      <span className={styles.arrow}>→</span>{pt}
-                    </li>
+      <ul className={styles.highlights}>
+        {lane.highlights.map((h, i) => {
+          const open = openIndex === i;
+          return (
+            <li key={h.title} className={styles.highlight} data-open={open}>
+              <button
+                type="button"
+                className={styles.highlightBtn}
+                aria-expanded={open}
+                aria-controls={`${company}-${lane.track}-${i}`}
+                onClick={() => setOpenIndex(open ? -1 : i)}
+              >
+                <span className={styles.highlightDot} aria-hidden="true" />
+                <span className={styles.highlightTitle}>{h.title}</span>
+                <Icon name="chevron" size={15} className={styles.chevron} />
+              </button>
+
+              <div
+                id={`${company}-${lane.track}-${i}`}
+                className={styles.highlightBody}
+                hidden={!open}
+              >
+                <p className={styles.highlightDetail}>{h.detail}</p>
+                <ul className={styles.stack}>
+                  {h.stack.map(s => (
+                    <li key={s} className="tag tag-accent">{s}</li>
                   ))}
                 </ul>
               </div>
-            </div>
-          ))}
-        </div>
+            </li>
+          );
+        })}
+      </ul>
+    </div>
+  );
+}
 
-        <div className={styles.callout}>
-          <span className={styles.calloutIcon}>🚀</span>
-          <div>
-            <div className={styles.calloutTitle}>Actively Seeking Opportunities</div>
-            <div className={styles.calloutDesc}>
-              Looking for full-time roles in Full Stack Development (ReactJS / Spring Boot). Open to on-site, hybrid, or remote positions across India.
-            </div>
-          </div>
-        </div>
+export default function Experience() {
+  const [filter, setFilter] = useState('all');
+
+  return (
+    <Section
+      id="experience"
+      num="04"
+      eyebrow="Experience"
+      title={<>Two tracks, <em>run in parallel</em></>}
+      lede="At BestQ I hold two roles at once — automating quality across three client products, and building the reporting platform those results land in. Filter to whichever track you are hiring for."
+      aside={<TrackToggle value={filter} onChange={setFilter} options={OPTIONS} />}
+    >
+      <div className={styles.timeline}>
+        {experience.map(job => {
+          const lanes = job.tracks
+            .filter(t => filter === 'all' || t.track === filter)
+            .sort((a, b) => TRACK_ORDER[a.track] - TRACK_ORDER[b.track]);
+          if (lanes.length === 0) {
+            return (
+              <div key={job.id} className={styles.emptyRow}>
+                <span className={styles.emptyDot} aria-hidden="true" />
+                <p className={styles.empty}>
+                  <strong>{job.company}</strong> has no {TRACK_META[filter].label.toLowerCase()} track.
+                </p>
+              </div>
+            );
+          }
+
+          return (
+            <article key={job.id} className={`${styles.job} reveal`}>
+              <div className={styles.rail} aria-hidden="true">
+                <span className={styles.railDot} data-current={job.current} />
+                <span className={styles.railLine} />
+              </div>
+
+              <div className={styles.jobBody}>
+                <header className={styles.jobHead}>
+                  <div className={styles.jobIdentity}>
+                    <h3 className={styles.company}>
+                      {job.company}
+                      {job.current && <span className={styles.now}>Now</span>}
+                    </h3>
+                    <p className={styles.jobMeta}>
+                      <span><Icon name="briefcase" size={12} /> {job.employment}</span>
+                      <span><Icon name="pin" size={12} /> {job.location}</span>
+                      <span><Icon name="calendar" size={12} /> {job.period}</span>
+                    </p>
+                  </div>
+
+                  {job.clients.length > 0 && (
+                    <div className={styles.clients}>
+                      <span className={styles.clientsLabel}>Clients</span>
+                      <div className={styles.clientChips}>
+                        {job.clients.map(c => (
+                          <span key={c} className={styles.clientChip}>{c}</span>
+                        ))}
+                      </div>
+                    </div>
+                  )}
+                </header>
+
+                <p className={styles.jobSummary}>{job.summary}</p>
+
+                <div className={styles.lanes} data-single={lanes.length === 1}>
+                  {lanes.map(lane => (
+                    <Lane key={lane.track} lane={lane} company={job.id} />
+                  ))}
+                </div>
+              </div>
+            </article>
+          );
+        })}
       </div>
-    </section>
+    </Section>
   );
 }

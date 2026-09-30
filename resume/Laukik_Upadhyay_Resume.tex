@@ -1,0 +1,264 @@
+%==============================================================
+%  LAUKIK UPADHYAY — RÉSUMÉ
+%  Compile on Overleaf with pdfLaTeX (Menu → Compiler → pdfLaTeX).
+%  Single column and ATS-safe: no multi-column layout, no text
+%  inside images, real selectable text throughout.
+%==============================================================
+\documentclass[a4paper,10pt]{article}
+
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage[default]{lato}          % clean grotesque; drop this line for Computer Modern
+\usepackage[tracking=true]{microtype}
+\usepackage[dvipsnames]{xcolor}
+\usepackage{geometry}
+\usepackage{titlesec}
+\usepackage{enumitem}
+\usepackage{tabularx}
+\usepackage{array}
+\usepackage{fontawesome5}
+\usepackage[hidelinks]{hyperref}
+
+%--------------------------------------------------------------
+%  PAGE
+%--------------------------------------------------------------
+\geometry{a4paper, top=11mm, bottom=10mm, left=13mm, right=13mm}
+\pagenumbering{gobble}
+\setlength{\parindent}{0pt}
+\setlength{\tabcolsep}{0pt}
+\linespread{1.04}
+
+%--------------------------------------------------------------
+%  PALETTE  — one place to restyle the whole document
+%--------------------------------------------------------------
+\definecolor{accent}{HTML}{3730A3}   % headings, rules, bullets
+\definecolor{ink}{HTML}{111111}      % primary text / bold
+\definecolor{body}{HTML}{333333}     % body copy
+\definecolor{muted}{HTML}{555555}    % secondary copy
+\definecolor{rulegrey}{HTML}{C8C8D4} % section underline
+\definecolor{band}{HTML}{F4F4FA}     % role band fill
+
+\color{body}
+\hypersetup{colorlinks=true, urlcolor=accent, linkcolor=accent}
+
+%--------------------------------------------------------------
+%  SECTION HEADINGS
+%--------------------------------------------------------------
+\titleformat{\section}
+  {\color{accent}\bfseries\fontsize{10}{12}\selectfont}
+  {}{0em}
+  {\textls[160]\MakeUppercase}
+  [\vspace{-5pt}\color{rulegrey}\titlerule\vspace{-2pt}]
+
+\titlespacing*{\section}{0pt}{9pt}{5pt}
+
+%--------------------------------------------------------------
+%  LISTS
+%--------------------------------------------------------------
+\setlist[itemize]{
+  leftmargin  = 11pt,
+  labelsep    = 5pt,
+  topsep      = 3pt,
+  itemsep     = 2pt,
+  parsep      = 0pt,
+  label       = {\color{accent}\scriptsize$\bullet$}
+}
+
+%--------------------------------------------------------------
+%  BUILDING BLOCKS
+%--------------------------------------------------------------
+
+% Employer line: name left, dates right.
+\newcommand{\company}[2]{%
+  \vspace{1pt}%
+  {\color{ink}\bfseries\fontsize{12}{14}\selectfont #1}%
+  \hfill%
+  {\color{ink}\bfseries\small #2}%
+  \par%
+}
+
+% Grey sub-line under the employer (location, clients…).
+\newcommand{\companymeta}[1]{%
+  {\color{muted}\small #1}\par\vspace{2pt}%
+}
+
+% Role band — accent bar plus title. Replaces a coloured box so
+% there is no tcolorbox dependency and the text stays selectable.
+\newcommand{\role}[2]{%
+  \vspace{5pt}%
+  \noindent\textcolor{accent}{\rule[-2pt]{2.6pt}{12pt}}\hspace{6pt}%
+  {\color{ink}\bfseries #1}%
+  {\color{muted} \textemdash\ #2}%
+  \par\vspace{1pt}%
+}
+
+% Bold lead-in for a bullet: \lead{Permissions:} rest of the sentence.
+\newcommand{\lead}[1]{{\color{ink}\bfseries #1}}
+
+% Project line: name left, stack + dates right.
+\newcommand{\project}[3]{%
+  \vspace{3pt}%
+  {\color{ink}\bfseries #1}%
+  \hfill%
+  {\color{muted}\small #2 \quad #3}%
+  \par%
+}
+
+% Skills row.
+\newcommand{\skillrow}[2]{%
+  {\color{ink}\bfseries #1} & #2 \\[2.5pt]%
+}
+
+% Education row.
+\newcommand{\edu}[4]{%
+  \begin{tabularx}{\textwidth}{@{}X r@{}}
+    {\color{ink}\bfseries #1} & {\color{ink}\bfseries #3} \\
+    {\color{muted}\small #2}  & {\color{muted}\small #4} \\
+  \end{tabularx}
+  \vspace{3pt}%
+}
+
+%==============================================================
+\begin{document}
+
+%--------------------------------------------------------------
+%  HEADER
+%--------------------------------------------------------------
+\begin{center}
+  {\color{ink}\bfseries\fontsize{23}{26}\selectfont \textls[50]{LAUKIK UPADHYAY}}
+
+  \vspace{4pt}
+  {\color{accent}\bfseries\fontsize{10}{12}\selectfont
+   Software Development Engineer (SDE)\ \ \textbar\ \ Software Development Engineer in Test (SDET)}
+
+  \vspace{5pt}
+  {\color{accent}\rule{\textwidth}{1.2pt}}
+
+  \vspace{4pt}
+  {\color{muted}\small
+    \faPhone*\ +91-9863711132 \quad
+    \faEnvelope\ \href{mailto:laukikbhardwaj183@gmail.com}{laukikbhardwaj183@gmail.com} \quad
+    \faLinkedin\ \href{https://www.linkedin.com/in/laukikupadhyay/}{LinkedIn} \quad
+    \faGithub\ \href{https://github.com/laukikupadhyay}{GitHub} \quad
+    \faMapMarker*\ Bengaluru, India
+  }
+\end{center}
+
+%--------------------------------------------------------------
+\section{Professional Summary}
+
+Software Development Engineer and SDET who \lead{ships product features and the automation that
+proves they work}. Builds feature modules inside the \lead{ReportPortal platform codebase} —
+permissions and RBAC, API key management, daily tracking and records — in \lead{Java and React},
+working within an established open-source project rather than greenfield. In parallel, owns
+automated quality across \lead{mobile, web and API} with Appium, Playwright and REST Assured,
+wired into CI/CD. Owns work end to end, from design and implementation through test strategy to
+release readiness.
+
+%--------------------------------------------------------------
+\section{Technical Skills}
+
+\begin{tabularx}{\textwidth}{@{}p{2.55cm}>{\raggedright\arraybackslash}X@{}}
+  \skillrow{Development}{Java (Core \& Advanced), Spring Boot, Spring MVC, Spring Security,
+    Hibernate, JPA, REST APIs, ReactJS, JavaScript, Tailwind CSS, Bootstrap, HTML5, CSS3}
+  \skillrow{Databases}{PostgreSQL, MySQL, SQL, schema design, normalisation, query optimisation}
+  \skillrow{Platform \& Security}{Role-based access control (RBAC), feature-level permissions,
+    API key issuing / scoping / rotation, admin \& user management, records and data management}
+  \skillrow{Test Automation}{Playwright, Page Object Model, Appium, Appium Inspector, BrowserStack,
+    device farms, TestNG, JUnit, REST Assured, Postman, Newman, API contract \& schema validation,
+    parallel execution}
+  \skillrow{Manual QA}{Test planning and case design, functional, smoke, regression, exploratory
+    and cross-browser testing, defect lifecycle, root-cause analysis}
+  \skillrow{Reporting \& CI/CD}{ReportPortal dashboards and widgets, auto-analysis, defect
+    classification, failure triage, Jenkins, CI/CD pipelines, Maven, Docker}
+  \skillrow{Tools \& Concepts}{Git, GitHub, Jira, Linear, VS Code, Eclipse, OOP, Collections
+    Framework, Agile/Scrum, code review, debugging}
+\end{tabularx}
+
+%--------------------------------------------------------------
+\section{Professional Experience}
+
+\company{BestQ}{Jul 2024 -- Present}
+\companymeta{Full-time \textperiodcentered\ Bengaluru (Remote) \textperiodcentered\ Clients:
+  {\color{ink}\bfseries BRILO.AI}, {\color{ink}\bfseries VTION}, {\color{ink}\bfseries VEOTS}}
+
+\role{Software Development Engineer (SDE)}{ReportPortal Platform \textperiodcentered\ Java \& React}
+\begin{itemize}
+  \item \lead{Permissions \& Access Control (RBAC):} Built the permission module inside the
+    ReportPortal codebase — role-based project access, feature-level permissions governing
+    individual actions rather than whole pages, and the admin interface for creating users,
+    assigning roles and auditing access.
+  \item \lead{API Key Management:} Implemented issuing, scoping, rotation and revocation of the
+    API keys CI pipelines and integrations authenticate with, carrying permission scope on the key
+    itself rather than inheriting it from its creator.
+  \item \lead{Daily Tracking \& Reporting:} Built daily run tracking and reporting so teams read
+    quality as a trend across days rather than a verdict per build, surfacing regressions before a
+    release gate.
+  \item \lead{Records \& Data Management:} Implemented storage, querying and export paths for
+    launch and test-item records, keeping history searchable as data volume grows.
+  \item \lead{Dashboards \& Defect Classification:} Designed dashboards and widgets for pass/fail
+    trends, flaky-test detection and failure distribution; configured launch attributes and tags
+    (environment, build, browser, test type) for filtering; set up defect classification — Product
+    Bug, Automation Bug, System Issue — with auto-analysis.
+  \item \lead{Ingestion \& CI/CD:} Integrated Playwright suites to publish launches, suites, test
+    items, logs, screenshots and attachments automatically; consumed ReportPortal REST APIs and
+    wired publishing into CI/CD. Delivered throughout inside an established open-source Java and
+    React platform, through peer review and Git-based workflows.
+\end{itemize}
+
+\role{Software Development Engineer in Test (SDET)}{Mobile, Web, API \& Manual}
+\begin{itemize}
+  \item \lead{Mobile Automation:} Appium automation for Android covering install, launch, login,
+    navigation and core journeys, using explicit waits and gesture APIs for stability; ran on
+    emulators, real devices and BrowserStack through a shared device farm, validating APK install
+    flows with parallel cross-device and cross-OS execution.
+  \item \lead{Web Automation:} Built and maintained end-to-end Playwright suites on the Page Object
+    Model with reusable fixtures, resilient locators, auto-waiting and parallel execution.
+  \item \lead{API Testing:} Verified REST APIs for status codes, payloads, schema, headers,
+    authentication and error handling with REST Assured and Postman, automated to run alongside
+    the UI suite.
+  \item \lead{Manual QA:} Wrote test plans, scenarios and cases from requirements; ran functional,
+    smoke, regression, exploratory and cross-browser cycles and drove defects through their full
+    lifecycle.
+  \item \lead{Test Stability:} Cut flaky tests through explicit waits, isolated test data and a
+    deliberate retry strategy; tracked stability on ReportPortal with developers and product owners
+    across Agile sprints.
+\end{itemize}
+
+%--------------------------------------------------------------
+\section{Projects}
+
+\project{Courier \& Logistics Tracking System}{Java \textperiodcentered\ PostgreSQL \textperiodcentered\ SQL}{Apr 2024 -- May 2024}
+\begin{itemize}
+  \item Console-based courier tracking system in Java applying core \lead{OOP principles}, with a
+    \lead{normalised PostgreSQL schema} across Customer, Warehouse, Delivery Agent, Package,
+    Payment and Tracking entities and their one-to-many and many-to-one relationships.
+  \item Shipment lifecycle tracking with \lead{status enums and timestamp-based history}, using the
+    Java Collections Framework for in-memory filtering before persistence.
+\end{itemize}
+
+\project{ABCs of Make-Up}{Java \textperiodcentered\ ReactJS \textperiodcentered\ PostgreSQL}{Feb 2024 -- Mar 2024}
+\begin{itemize}
+  \item \lead{Full-stack web application} with Java backend logic and a ReactJS front-end, over a
+    PostgreSQL database for users, tutorials and contact-form data.
+  \item \lead{REST-style request and response handling} in Java, with a contact form that persists
+    user queries for follow-up.
+\end{itemize}
+
+%--------------------------------------------------------------
+\section{Education}
+
+\edu{Bachelor of Technology, Computer Science}{Chandigarh University, Punjab}{CGPA 7.8 / 10}{Jun 2024}
+\edu{Diploma in Programming}{NICT — North Eastern Institute of Computer Technology, Meghalaya}{CGPA 8.4 / 10}{Mar 2021}
+
+%--------------------------------------------------------------
+\section{Achievements \& Certifications}
+
+\begin{itemize}
+  \item \lead{Gold Badge — Java Programming}, HackerRank
+  \item \lead{Java Full Stack Development}, JSpiders, Bengaluru
+  \item \lead{``A'' Grade in Diploma}, NICT, Meghalaya \quad\textperiodcentered\quad
+        \lead{Class Representative}, Chandigarh University
+\end{itemize}
+
+\end{document}

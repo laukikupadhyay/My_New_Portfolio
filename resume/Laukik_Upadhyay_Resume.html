@@ -1,0 +1,443 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Laukik Upadhyay — Résumé</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+<style>
+  /* ═══════════════════════════════════════════════════════════
+     PRINT SETUP
+     A4 with tight-but-breathable margins. Colour adjust is forced
+     so the rules and accents survive "Save as PDF".
+     ═══════════════════════════════════════════════════════════ */
+  @page { size: A4; margin: 10mm 11mm 9mm; }
+
+  :root {
+    --ink:        #111111;
+    --ink-soft:   #333333;
+    --ink-muted:  #555555;
+    --accent:     #3730A3;
+    --accent-2:   #4338CA;
+    --rule:       #C8C8D4;
+    --rule-light: #E4E4EC;
+
+    /* Tuned so the whole résumé lands on exactly two A4 pages. */
+    --fs-name:    21pt;
+    --fs-role:    9.2pt;
+    --fs-contact: 8pt;
+    --fs-h2:      8.6pt;
+    --fs-org:     10.2pt;
+    --fs-title:   9pt;
+    --fs-body:    8.5pt;
+    --fs-small:   7.9pt;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+
+  body {
+    font-family: 'Inter', Calibri, 'Helvetica Neue', Arial, sans-serif;
+    font-size: var(--fs-body);
+    line-height: 1.42;
+    color: var(--ink-soft);
+    background: #9AA0AE;
+    font-feature-settings: 'kern' 1, 'liga' 1;
+    text-rendering: optimizeLegibility;
+  }
+
+  .page {
+    width: 210mm;
+    min-height: 297mm;
+    margin: 14px auto;
+    padding: 11mm 12mm 10mm;
+    background: #FFFFFF;
+    box-shadow: 0 6px 28px rgba(0,0,0,0.3);
+  }
+
+  /* ═══ HEADER ═══════════════════════════════════════════════ */
+  .name {
+    font-size: var(--fs-name);
+    font-weight: 800;
+    letter-spacing: 0.03em;
+    color: var(--ink);
+    text-transform: uppercase;
+    line-height: 1.02;
+  }
+
+  .role {
+    margin-top: 3.5pt;
+    font-size: var(--fs-role);
+    font-weight: 600;
+    color: var(--accent);
+    letter-spacing: 0.005em;
+  }
+  .role .sep { color: var(--rule); font-weight: 400; margin: 0 5pt; }
+
+  .contact {
+    margin-top: 5pt;
+    padding-top: 5pt;
+    border-top: 1.4pt solid var(--accent);
+    font-size: var(--fs-contact);
+    color: var(--ink-muted);
+  }
+  .contact a { color: var(--accent-2); text-decoration: none; font-weight: 500; }
+  .contact .sep { color: var(--rule); margin: 0 5pt; }
+
+  /* ═══ SECTIONS ═════════════════════════════════════════════ */
+  section { margin-top: 10pt; }
+
+  h2 {
+    font-size: var(--fs-h2);
+    font-weight: 700;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--accent);
+    padding-bottom: 2.4pt;
+    border-bottom: 0.9pt solid var(--rule);
+    margin-bottom: 6pt;
+  }
+
+  .summary { text-align: justify; color: var(--ink-soft); }
+  .summary strong { color: var(--ink); font-weight: 600; }
+
+  /* ═══ SKILLS ═══════════════════════════════════════════════ */
+  .skills { display: grid; grid-template-columns: 82pt 1fr; gap: 3.4pt 9pt; }
+
+  .skills dt {
+    font-weight: 700;
+    font-size: var(--fs-small);
+    color: var(--ink);
+    line-height: 1.38;
+  }
+  .skills dd { font-size: var(--fs-small); color: var(--ink-soft); line-height: 1.38; }
+
+  /* ═══ EXPERIENCE ═══════════════════════════════════════════ */
+  .job { margin-bottom: 8pt; break-inside: avoid; }
+
+  .job-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 10pt;
+  }
+
+  .org { font-size: var(--fs-org); font-weight: 700; color: var(--ink); letter-spacing: -0.005em; }
+  .dates { font-size: var(--fs-small); font-weight: 600; color: var(--ink); white-space: nowrap; }
+
+  .job-sub {
+    display: flex;
+    justify-content: space-between;
+    gap: 10pt;
+    margin-top: 1pt;
+    font-size: var(--fs-small);
+    color: var(--ink-muted);
+  }
+  .job-sub .clients { font-weight: 500; }
+  .job-sub .clients b { color: var(--ink); font-weight: 600; }
+
+  .track {
+    margin-top: 6pt;
+    break-inside: avoid;
+  }
+
+  .track-title {
+    font-size: var(--fs-title);
+    font-weight: 700;
+    color: var(--ink);
+    padding: 2pt 0 2pt 6pt;
+    border-left: 2.6pt solid var(--accent);
+    background: #F4F4FA;
+    margin-bottom: 3.5pt;
+  }
+  .track-title .scope { font-weight: 500; color: var(--ink-muted); }
+
+  ul { list-style: none; }
+
+  li {
+    position: relative;
+    padding-left: 9pt;
+    margin-bottom: 2.6pt;
+    text-align: justify;
+  }
+  li::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 4.6pt;
+    width: 3pt;
+    height: 3pt;
+    border-radius: 50%;
+    background: var(--accent);
+  }
+  li b { color: var(--ink); font-weight: 700; }
+
+  /* ═══ PROJECTS ═════════════════════════════════════════════ */
+  .project { margin-bottom: 5.5pt; break-inside: avoid; }
+
+  .project-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 10pt;
+    margin-bottom: 1.6pt;
+  }
+  .project-name { font-size: var(--fs-title); font-weight: 700; color: var(--ink); }
+  .project-stack { font-size: var(--fs-small); color: var(--ink-muted); font-weight: 500; }
+
+  /* ═══ EDUCATION ════════════════════════════════════════════ */
+  .edu {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 10pt;
+    padding: 2.8pt 0;
+    border-bottom: 0.6pt solid var(--rule-light);
+    break-inside: avoid;
+  }
+  .edu:last-child { border-bottom: none; }
+  .edu-degree { font-weight: 700; color: var(--ink); }
+  .edu-meta { color: var(--ink-muted); font-size: var(--fs-small); }
+  .edu-right { text-align: right; white-space: nowrap; font-size: var(--fs-small); }
+  .edu-right b { color: var(--ink); font-weight: 700; }
+
+  /* ═══ ACHIEVEMENTS ═════════════════════════════════════════ */
+  /* Achievements sit tighter than body bullets. */
+  section:last-of-type li { margin-bottom: 1.6pt; }
+
+  /* ═══ SCREEN-ONLY TOOLBAR ══════════════════════════════════ */
+  .toolbar {
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    padding: 9px;
+    background: #1A1A24;
+    color: #E6E6F0;
+    font-size: 13px;
+  }
+  .toolbar button {
+    font: inherit;
+    font-weight: 600;
+    color: #fff;
+    background: #4338CA;
+    border: none;
+    border-radius: 6px;
+    padding: 7px 16px;
+    cursor: pointer;
+  }
+  .toolbar button:hover { background: #3730A3; }
+  .toolbar span { opacity: 0.7; }
+
+  @media print {
+    body { background: #fff; }
+    .toolbar { display: none !important; }
+    .page { width: auto; min-height: 0; margin: 0; padding: 0; box-shadow: none; }
+    a { color: var(--accent-2) !important; }
+  }
+</style>
+</head>
+<body>
+
+<div class="toolbar">
+  <button onclick="window.print()">Save as PDF</button>
+  <span>Use A4 · margins “Default” · enable “Background graphics”</span>
+</div>
+
+<div class="page">
+
+  <header>
+    <h1 class="name">Laukik Upadhyay</h1>
+    <p class="role">
+      Software Development Engineer (SDE)<span class="sep">|</span>Software Development Engineer in Test (SDET)
+    </p>
+    <p class="contact">
+      +91-9863711132<span class="sep">•</span>
+      <a href="mailto:laukikbhardwaj183@gmail.com">laukikbhardwaj183@gmail.com</a><span class="sep">•</span>
+      <a href="https://www.linkedin.com/in/laukikupadhyay/">LinkedIn</a><span class="sep">•</span>
+      <a href="https://github.com/laukikupadhyay">GitHub</a><span class="sep">•</span>
+      Bengaluru, India
+    </p>
+  </header>
+
+  <section>
+    <h2>Professional Summary</h2>
+    <p class="summary">
+      Software Development Engineer and SDET who <strong>ships product features and the automation that
+      proves they work</strong>. Builds feature modules inside the <strong>ReportPortal platform codebase</strong>
+      — permissions and RBAC, API key management, daily tracking and records — in <strong>Java and React</strong>,
+      working within an established open-source project rather than greenfield. In parallel, owns automated
+      quality across <strong>mobile, web and API</strong> with Appium, Playwright and REST Assured, wired into
+      CI/CD. Owns work end to end, from design and implementation through test strategy to release readiness.
+    </p>
+  </section>
+
+  <section>
+    <h2>Technical Skills</h2>
+    <dl class="skills">
+      <dt>Development</dt>
+      <dd>Java (Core &amp; Advanced), Spring Boot, Spring MVC, Spring Security, Hibernate, JPA, REST APIs,
+          ReactJS, JavaScript, Tailwind CSS, Bootstrap, HTML5, CSS3</dd>
+
+      <dt>Databases</dt>
+      <dd>PostgreSQL, MySQL, SQL, schema design, normalisation, query optimisation</dd>
+
+      <dt>Platform &amp; Security</dt>
+      <dd>Role-based access control (RBAC), feature-level permissions, API key issuing / scoping / rotation,
+          admin &amp; user management, records and data management</dd>
+
+      <dt>Test Automation</dt>
+      <dd>Playwright, Page Object Model, Appium, Appium Inspector, BrowserStack, device farms, TestNG, JUnit,
+          REST Assured, Postman, Newman, API contract &amp; schema validation, parallel execution</dd>
+
+      <dt>Manual QA</dt>
+      <dd>Test planning and case design, functional, smoke, regression, exploratory and cross-browser testing,
+          defect lifecycle, root-cause analysis</dd>
+
+      <dt>Reporting &amp; CI/CD</dt>
+      <dd>ReportPortal dashboards and widgets, auto-analysis, defect classification, failure triage, Jenkins,
+          CI/CD pipelines, Maven, Docker</dd>
+
+      <dt>Tools &amp; Concepts</dt>
+      <dd>Git, GitHub, Jira, Linear, VS Code, Eclipse, OOP, Collections Framework, Agile/Scrum, code review, debugging</dd>
+    </dl>
+  </section>
+
+  <section>
+    <h2>Professional Experience</h2>
+
+    <div class="job">
+      <div class="job-head">
+        <span class="org">BestQ</span>
+        <span class="dates">Jul 2024 – Present</span>
+      </div>
+      <div class="job-sub">
+        <span class="clients">Full-time · Bengaluru (Remote) · Clients: <b>BRILO.AI</b>, <b>VTION</b>, <b>VEOTS</b></span>
+      </div>
+
+      <div class="track">
+        <p class="track-title">
+          Software Development Engineer (SDE)
+          <span class="scope">— ReportPortal Platform · Java &amp; React</span>
+        </p>
+        <ul>
+          <li><b>Permissions &amp; Access Control (RBAC):</b> Built the permission module inside the ReportPortal
+              codebase — role-based project access, feature-level permissions governing individual actions rather
+              than whole pages, and the admin interface for creating users, assigning roles and auditing access.</li>
+          <li><b>API Key Management:</b> Implemented issuing, scoping, rotation and revocation of the API keys CI
+              pipelines and integrations authenticate with, carrying permission scope on the key itself rather than
+              inheriting it from its creator.</li>
+          <li><b>Daily Tracking &amp; Reporting:</b> Built daily run tracking and reporting so teams read quality as
+              a trend across days rather than a verdict per build, surfacing regressions before a release gate.</li>
+          <li><b>Records &amp; Data Management:</b> Implemented storage, querying and export paths for launch and
+              test-item records, keeping history searchable as data volume grows.</li>
+          <li><b>Dashboards &amp; Defect Classification:</b> Designed dashboards and widgets for pass/fail trends,
+              flaky-test detection and failure distribution; configured launch attributes and tags (environment, build,
+              browser, test type) for filtering; set up defect classification — Product Bug, Automation Bug, System
+              Issue — with auto-analysis.</li>
+          <li><b>Ingestion &amp; CI/CD:</b> Integrated Playwright suites to publish launches, suites, test items, logs,
+              screenshots and attachments automatically; consumed ReportPortal REST APIs and wired publishing into
+              CI/CD. Delivered throughout inside an established open-source Java and React platform, through peer
+              review and Git-based workflows.</li>
+        </ul>
+      </div>
+
+      <div class="track">
+        <p class="track-title">
+          Software Development Engineer in Test (SDET)
+          <span class="scope">— Mobile, Web, API &amp; Manual</span>
+        </p>
+        <ul>
+          <li><b>Mobile Automation:</b> Built Appium automation for Android covering install, launch, login, navigation
+              and core journeys, using explicit waits and gesture APIs for stability; ran suites on emulators, real
+              devices and BrowserStack through a shared device farm, validating APK upload and install flows alongside
+              parallel cross-device and cross-OS execution.</li>
+          <li><b>Web Automation:</b> Built and maintained end-to-end Playwright suites on the Page Object Model with
+              reusable fixtures, resilient locators, auto-waiting and parallel execution.</li>
+          <li><b>API Testing:</b> Verified REST APIs for status codes, payloads, schema, headers, authentication and
+              error handling with REST Assured and Postman, automated to run alongside the UI suite.</li>
+          <li><b>Manual QA:</b> Wrote test plans, scenarios and cases from requirements; ran functional, smoke,
+              regression, exploratory and cross-browser cycles and drove defects through their full lifecycle.</li>
+          <li><b>Test Stability:</b> Cut flaky tests through explicit waits, isolated test data and a deliberate retry
+              strategy; tracked stability on ReportPortal and worked with developers and product owners across Agile
+              sprints on coverage and release readiness.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <h2>Projects</h2>
+
+    <div class="project">
+      <div class="project-head">
+        <span class="project-name">Courier &amp; Logistics Tracking System</span>
+        <span class="project-stack">Java · PostgreSQL · SQL &nbsp;|&nbsp; Apr 2024 – May 2024</span>
+      </div>
+      <ul>
+        <li>Console-based courier tracking system in Java applying core <b>OOP principles</b>, with a
+            <b>normalised PostgreSQL schema</b> across Customer, Warehouse, Delivery Agent, Package, Payment and
+            Tracking entities and their one-to-many and many-to-one relationships.</li>
+        <li>Shipment lifecycle tracking with <b>status enums and timestamp-based history</b>, using the Java
+            Collections Framework for in-memory filtering before persistence.</li>
+      </ul>
+    </div>
+
+    <div class="project">
+      <div class="project-head">
+        <span class="project-name">ABCs of Make-Up</span>
+        <span class="project-stack">Java · ReactJS · PostgreSQL · SQL &nbsp;|&nbsp; Feb 2024 – Mar 2024</span>
+      </div>
+      <ul>
+        <li><b>Full-stack web application</b> with Java backend logic and a ReactJS front-end, over a PostgreSQL
+            database for users, tutorials and contact-form data.</li>
+        <li><b>REST-style request and response handling</b> in Java, with a contact form that persists user queries
+            for follow-up.</li>
+      </ul>
+    </div>
+  </section>
+
+  <section>
+    <h2>Education</h2>
+
+    <div class="edu">
+      <div>
+        <div class="edu-degree">Bachelor of Technology, Computer Science</div>
+        <div class="edu-meta">Chandigarh University, Punjab</div>
+      </div>
+      <div class="edu-right">
+        <b>CGPA 7.8 / 10</b><br />Jun 2024
+      </div>
+    </div>
+
+    <div class="edu">
+      <div>
+        <div class="edu-degree">Diploma in Programming</div>
+        <div class="edu-meta">NICT — North Eastern Institute of Computer Technology, Meghalaya</div>
+      </div>
+      <div class="edu-right">
+        <b>CGPA 8.4 / 10</b><br />Mar 2021
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <h2>Achievements &amp; Certifications</h2>
+    <ul>
+      <li><b>Gold Badge — Java Programming</b>, HackerRank</li>
+      <li><b>Java Full Stack Development</b>, JSpiders, Bengaluru</li>
+      <li><b>“A” Grade in Diploma</b>, NICT, Meghalaya &nbsp;·&nbsp;
+          <b>Class Representative</b>, Chandigarh University</li>
+    </ul>
+  </section>
+
+</div>
+
+</body>
+</html>

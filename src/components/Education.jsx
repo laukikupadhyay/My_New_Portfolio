@@ -1,56 +1,75 @@
-import { education } from '../data/portfolioData';
+import { education } from '../data';
+import Section from './ui/Section';
+import Icon from './ui/Icon';
+import useSpotlight from '../hooks/useSpotlight';
 import styles from './Education.module.css';
 
-const ExtIcon = () => (
-  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-    <path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15,3 21,3 21,9"/><line x1="10" y1="14" x2="21" y2="3"/>
-  </svg>
-);
+function EduCard({ ed }) {
+  const ref = useSpotlight();
+  const pct = (parseFloat(ed.score) / parseFloat(ed.scoreOutOf)) * 100;
 
-const colorClass = { blue: 'blue', gold: 'gold' };
-
-export default function Education({ sRef }) {
   return (
-    <section className="section" ref={sRef} data-sec="Education">
-      <div className="wrap">
-        <div className="sec-label">05 · Academic</div>
-        <h2 className="sec-title">My <em>Education</em></h2>
+    <article ref={ref} className={`${styles.card} spot reveal`} data-track={ed.track}>
+      <span className="spot-glow" aria-hidden="true" />
 
-        <div className={styles.grid}>
-          {education.map(ed => (
-            <div className={`${styles.card} ${styles[colorClass[ed.color]] || ''}`} key={ed.degree}>
-              <div className={styles.top}>
-                <div className={styles.logoWrap}>
-                  {ed.logo ? (
-                    <img src={ed.logo} alt={ed.institution} className={styles.logo}
-                      onError={e => { e.target.style.display='none'; e.target.nextElementSibling.style.display='flex'; }}
-                    />
-                  ) : null}
-                  <div className={styles.logoFallback} style={{display: ed.logo ? 'none':'flex'}}>
-                    🎓
-                  </div>
-                </div>
-                <span className={`${styles.typeBadge} ${styles[ed.color]}`}>{ed.type}</span>
-              </div>
+      <header className={styles.head}>
+        <span className={styles.crest}>
+          {ed.logo
+            ? <img src={ed.logo} alt="" className={styles.logo} loading="lazy" />
+            : <Icon name="cap" size={20} />}
+        </span>
+        <span className={styles.badge}>{ed.badge}</span>
+      </header>
 
-              <h3 className={styles.degree}>{ed.degree}</h3>
-              <div className={styles.inst}>{ed.institution}</div>
+      <h3 className={styles.degree}>{ed.degree}</h3>
+      <p className={styles.institution}>{ed.institution}</p>
+      <p className={styles.place}>
+        <Icon name="pin" size={11} /> {ed.place}
+      </p>
 
-              <div className={styles.row}>
-                <div className={styles.cgpaWrap}>
-                  <span className={styles.cgpaLabel}>CGPA</span>
-                  <span className={styles.cgpa}>{ed.cgpa}</span>
-                </div>
-                <div className={styles.year}>🗓 {ed.period}</div>
-              </div>
-
-              <a href={ed.certUrl} target="_blank" rel="noopener noreferrer" className={styles.certLink}>
-                <ExtIcon /> View Passing Certificate
-              </a>
-            </div>
-          ))}
+      <div className={styles.stats}>
+        <div className={styles.score}>
+          <span className={styles.scoreLabel}>{ed.scoreLabel}</span>
+          <span className={styles.scoreValue}>
+            {ed.score}
+            <span className={styles.scoreMax}>/ {ed.scoreOutOf}</span>
+          </span>
+          <span className={styles.bar} aria-hidden="true">
+            <span className={styles.barFill} style={{ '--pct': `${pct}%` }} />
+          </span>
+        </div>
+        <div className={styles.completed}>
+          <span className={styles.scoreLabel}>Completed</span>
+          <span className={styles.completedValue}>{ed.completed}</span>
         </div>
       </div>
-    </section>
+
+      {ed.certUrl && (
+        <a
+          href={ed.certUrl}
+          target="_blank"
+          rel="noopener noreferrer"
+          className={styles.certLink}
+        >
+          <Icon name="external" size={13} /> View certificate
+        </a>
+      )}
+    </article>
+  );
+}
+
+export default function Education() {
+  return (
+    <Section
+      id="education"
+      num="07"
+      eyebrow="Academic"
+      title={<>Where it <em>started</em></>}
+      lede="Formal grounding in computer science, plus the diploma that got me writing code in the first place."
+    >
+      <div className={styles.grid}>
+        {education.map(ed => <EduCard key={ed.id} ed={ed} />)}
+      </div>
+    </Section>
   );
 }

@@ -1,17 +1,106 @@
 .footer {
-  border-top: 1px solid var(--border);
-  padding: 2rem 0; background: var(--bg2);
+  position: relative;
+  border-top: 1px solid var(--line);
+  background: linear-gradient(180deg, transparent, rgba(255, 255, 255, 0.014));
+  padding-top: var(--s7);
+  margin-top: var(--s5);
 }
-.inner { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 1.25rem; }
-.left { display: flex; flex-direction: column; gap: .3rem; }
-.logo { font-family: var(--serif); font-size: 1.3rem; font-weight: 800; color: var(--text); letter-spacing: -.02em; }
-.logo span { color: var(--accent); }
-.copy { font-size: .75rem; font-family: var(--mono); color: var(--muted); }
-.links { display: flex; gap: .15rem; flex-wrap: wrap; }
-.link {
-  background: none; border: none; cursor: pointer;
-  font-family: var(--sans); font-size: .78rem; color: var(--muted);
-  padding: .3rem .6rem; border-radius: 5px; transition: all .18s;
+
+.inner {
+  display: grid;
+  grid-template-columns: minmax(0, 1.5fr) minmax(0, 1fr) minmax(0, 1fr);
+  gap: var(--s7);
+  padding-bottom: var(--s7);
 }
-.link:hover { color: var(--text); background: var(--surface2); }
-@media (max-width:600px) { .links { display: none; } }
+
+/* ── Brand ───────────────────────────────────────────────── */
+.logo { display: inline-flex; align-items: center; gap: 0.6rem; margin-bottom: var(--s4); }
+
+.mark {
+  display: grid;
+  place-items: center;
+  width: 30px; height: 30px;
+  border-radius: 9px;
+  background: var(--duo-grad);
+  color: var(--white);
+  font-family: var(--font-display);
+  font-size: 0.7rem;
+  font-weight: 700;
+}
+
+.wordmark {
+  font-family: var(--font-display);
+  font-size: 1.05rem;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  color: var(--text);
+}
+.dot { color: var(--test-500); }
+
+.blurb {
+  font-size: var(--fs-sm);
+  line-height: 1.6;
+  color: var(--text-dim);
+  max-width: 34ch;
+  margin-bottom: var(--s5);
+}
+
+.socials { display: flex; gap: 0.45rem; }
+
+.social {
+  display: grid;
+  place-items: center;
+  width: 34px; height: 34px;
+  border-radius: var(--r-sm);
+  color: var(--text-dim);
+  border: 1px solid var(--line);
+  transition: color var(--d-fast) var(--ease-soft),
+              border-color var(--d-fast) var(--ease-soft),
+              transform var(--d-fast) var(--ease);
+}
+.social:hover { color: var(--text); border-color: var(--line-bright); transform: translateY(-2px); }
+
+/* ── Columns ─────────────────────────────────────────────── */
+.nav, .meta { display: flex; flex-direction: column; align-items: flex-start; gap: 0.5rem; }
+
+.navTitle {
+  font-family: var(--font-mono);
+  font-size: var(--fs-micro);
+  letter-spacing: var(--tr-caps);
+  text-transform: uppercase;
+  color: var(--text-faint);
+  margin-bottom: 0.3rem;
+}
+
+.navLink, .metaLink, .metaText {
+  font-size: var(--fs-sm);
+  color: var(--text-dim);
+  text-align: left;
+  transition: color var(--d-fast) var(--ease-soft);
+}
+.navLink:hover, .metaLink:hover { color: var(--dev-400); }
+
+/* ── Base bar ────────────────────────────────────────────── */
+.base {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--s4);
+  flex-wrap: wrap;
+  padding-block: var(--s5);
+  border-top: 1px solid var(--line);
+  font-size: var(--fs-xs);
+  color: var(--text-faint);
+}
+
+.built { font-family: var(--font-mono); font-size: var(--fs-micro); }
+
+@media (max-width: 800px) {
+  .inner { grid-template-columns: 1fr 1fr; gap: var(--s6); }
+  .brand { grid-column: 1 / -1; }
+}
+
+@media (max-width: 480px) {
+  .inner { grid-template-columns: 1fr; }
+  .base { flex-direction: column; align-items: flex-start; gap: 0.4rem; }
+}
